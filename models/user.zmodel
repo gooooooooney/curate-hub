@@ -1,0 +1,17 @@
+model User {
+  id String @id
+  email String? @unique
+  firstName String?
+  lastName String?
+  imageUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Clerk specific fields
+  externalId String @unique // This will store Clerk's user id
+  
+  // You can add more fields as needed
+
+  @@allow('all', true)
+}
+
