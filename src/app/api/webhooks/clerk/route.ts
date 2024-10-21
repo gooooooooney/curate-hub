@@ -1,8 +1,10 @@
-import { Webhook } from 'svix'
-import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
-import { env } from '@/lib/env'
 import { db } from '@/lib/db'
+import { users } from '@/lib/db/schema/users'
+import { env } from '@/lib/env'
+import { WebhookEvent } from '@clerk/nextjs/server'
+import { eq } from 'drizzle-orm'
+import { headers } from 'next/headers'
+import { Webhook } from 'svix'
 
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -57,23 +59,21 @@ export async function POST(req: Request) {
     const primaryEmail = email_addresses?.find(email => email.id === evt.data.primary_email_address_id)
 
     try {
-      await db?.user.upsert({
-        where: { externalId: id },
-        create: {
-          id: id, // Add this line
-          externalId: id,
-          email: primaryEmail?.email_address ?? null, // Handle potential undefined
-          firstName: first_name ?? null,
-          lastName: last_name ?? null,
-          imageUrl: image_url ?? null,
-        },
-        update: {
+      await db.insert(users).values({
+        email: primaryEmail?.email_address,
+        firstName: first_name ?? null,
+        lastName: last_name ?? null,
+        imageUrl: image_url ?? null,
+        externalId: id,
+      }).onConflictDoUpdate({
+        target: users.externalId,
+        set: {
           email: primaryEmail?.email_address,
           firstName: first_name,
           lastName: last_name,
           imageUrl: image_url,
-        },
-      })
+        }
+      });
       console.log(`User ${id} has been ${eventType === 'user.created' ? 'created' : 'updated'}`)
     } catch (error) {
       console.error('Error updating user in database:', error)
@@ -82,12 +82,19 @@ export async function POST(req: Request) {
       })
     }
   }
+  if (eventType === 'user.deleted') {
+    const { id } = evt.data;
+    if (id) {
+      await db.delete(users).where(eq(users.externalId, id));
+    }
+  }
+
 
   return new Response('', { status: 200 })
 }
 
 export const GET = () => {
-    return new Response('Hello World', { status: 200 });
+  return new Response('Hello World', { status: 200 });
 };
 
 

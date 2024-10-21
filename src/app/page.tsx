@@ -20,12 +20,6 @@ export default function LandingPage() {
           >
             Features
           </Link>
-          <Link
-            className="text-sm font-medium hover:underline underline-offset-4"
-            href="/sign-in"
-          >
-            Sign In
-          </Link>
         </nav>
       </header>
       <main className="flex-1">

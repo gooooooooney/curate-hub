@@ -5,7 +5,7 @@ import { NextResponse } from 'next/server';
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/clerk-middleware for more information about configuring your middleware
 const isProtectedRoute = createRouteMatcher([
- 
+
 ]);
 
 const isPublicRoute = createRouteMatcher([
@@ -14,9 +14,7 @@ const isPublicRoute = createRouteMatcher([
 ])
 
 export default clerkMiddleware((auth, req) => {
-  console.log(req.nextUrl.pathname);
-  console.log(isPublicRoute(req));
-  
+
   if (isPublicRoute(req)) return NextResponse.next();
 
   if (isProtectedRoute(req)) auth().protect();

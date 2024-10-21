@@ -1,15 +1,16 @@
-import { PrismaClient } from "@prisma/client";
+import { createClient } from "@libsql/client";
+import 'dotenv/config';
+import { drizzle } from 'drizzle-orm/libsql';
+import * as schema from "./schema/";
 
-declare global {
-  // allow global `var` declarations
-  // eslint-disable-next-line no-var
-  var db: PrismaClient | undefined;
-}
+const client = createClient({
+  url: process.env.TURSO_DATABASE_URL!,
+  authToken: process.env.TURSO_AUTH_TOKEN,
+});
 
-export const db =
-  global.db ||
-  new PrismaClient({
-    log: ["query"],
+export const db = drizzle(
+  client,
+  {
+    schema,
   });
 
-if (process.env.NODE_ENV !== "production") global.db = db;

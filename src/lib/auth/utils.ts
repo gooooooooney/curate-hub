@@ -1,4 +1,7 @@
+import { db } from '@/lib/db';
+import { users } from '@/lib/db/schema/user';
 import { auth } from "@clerk/nextjs/server";
+import { eq } from 'drizzle-orm';
 import { redirect } from "next/navigation";
 
 export type AuthSession = {
@@ -12,15 +15,16 @@ export type AuthSession = {
 };
 
 export const getUserAuth = async () => {
-  // find out more about setting up 'sessionClaims' (custom sessions) here: https://clerk.com/docs/backend-requests/making/custom-session-token
-  const { userId, sessionClaims } = auth();
+  const { userId } = auth();
+
   if (userId) {
+    const user = await db.select().from(users).where(eq(users.externalId, userId)).get();
     return {
       session: {
         user: {
           id: userId,
-          name: `${sessionClaims?.firstName} ${sessionClaims?.lastName}`,
-          email: sessionClaims?.email,
+          name: user ? `${user.firstName} ${user.lastName}` : undefined,
+          email: user?.email,
         },
       },
     } as AuthSession;
