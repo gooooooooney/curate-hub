@@ -1,5 +1,5 @@
 import { db } from '@/lib/db';
-import { users } from '@/lib/db/schema/user';
+import { users } from '@/lib/db/schema/users';
 import { auth } from "@clerk/nextjs/server";
 import { eq } from 'drizzle-orm';
 import { redirect } from "next/navigation";
