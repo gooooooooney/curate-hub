@@ -36,6 +36,13 @@
       "when": 1729518680618,
       "tag": "0004_outstanding_mole_man",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "6",
+      "when": 1729563726545,
+      "tag": "0005_giant_loki",
+      "breakpoints": true
     }
   ]
 }
