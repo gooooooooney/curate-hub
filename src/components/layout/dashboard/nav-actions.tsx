@@ -35,6 +35,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { UserInfo } from "../../auth/user-info"
+import { ModeToggle } from "@/components/ui/ThemeToggle"
 
 const data = [
   [
@@ -145,7 +146,7 @@ export function NavActions() {
           </Sidebar>
         </PopoverContent>
       </Popover>
-
+      <ModeToggle />
       <UserInfo />
     </div>
   )

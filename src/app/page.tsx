@@ -4,7 +4,6 @@
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
 import Link from "next/link";
-
 export default function LandingPage() {
   return (
     <div className="flex flex-col min-h-screen">
@@ -157,7 +156,7 @@ export default function LandingPage() {
   );
 }
 
-function MountainIcon(props: any) {
+function MountainIcon(props: Record<string, unknown>) {
   return (
     <svg
       {...props}
