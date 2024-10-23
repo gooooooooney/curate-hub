@@ -9,13 +9,14 @@ export default async function AppLayout({
   await checkAuth();
   return (
     <main>
-      <ClerkProvider>
+      <ClerkProvider dynamic>
         <div
           className="flex h-screen">
           <main className="flex-1 md:p-1 pt-2 p-8 overflow-y-auto">
             {children}
           </main>
-        </div></ClerkProvider>
+        </div>
+      </ClerkProvider>
 
       <Toaster richColors />
     </main>

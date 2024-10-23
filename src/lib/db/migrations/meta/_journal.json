@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "6",
-      "when": 1729497868852,
-      "tag": "0000_fast_proteus",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "6",
-      "when": 1729517354309,
-      "tag": "0001_rich_nemesis",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "6",
-      "when": 1729517682521,
-      "tag": "0002_crazy_prowler",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "6",
-      "when": 1729517835472,
-      "tag": "0003_familiar_the_spike",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "6",
-      "when": 1729518680618,
-      "tag": "0004_outstanding_mole_man",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "6",
-      "when": 1729563726545,
-      "tag": "0005_giant_loki",
+      "when": 1729690781978,
+      "tag": "0000_natural_stingray",
       "breakpoints": true
     }
   ]

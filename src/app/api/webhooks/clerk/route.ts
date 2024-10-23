@@ -6,6 +6,15 @@ import { eq } from 'drizzle-orm'
 import { headers } from 'next/headers'
 import { Webhook } from 'svix'
 
+/**
+ * 路由: POST /api/webhooks/clerk
+ * 作用: 处理来自 Clerk 的 webhook 事件
+ * 参数:
+ *   - 整个请求体: Clerk webhook 事件数据
+ * 返回: 
+ *   - 成功时: 200 状态码
+ *   - 失败时: 适当的错误状态码和消息
+ */
 export async function POST(req: Request) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
   const WEBHOOK_SECRET = env.WEBHOOK_SECRET
@@ -15,7 +24,7 @@ export async function POST(req: Request) {
   }
 
   // Get the headers
-  const headerPayload = headers()
+  const headerPayload = await headers()
   const svix_id = headerPayload.get('svix-id')
   const svix_timestamp = headerPayload.get('svix-timestamp')
   const svix_signature = headerPayload.get('svix-signature')
@@ -92,5 +101,3 @@ export async function POST(req: Request) {
 
   return new Response('', { status: 200 })
 }
-
-

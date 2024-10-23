@@ -15,7 +15,7 @@ export type AuthSession = {
 };
 
 export const getUserAuth = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
 
   if (userId) {
     const user = await db.select().from(users).where(eq(users.externalId, userId)).get();
@@ -34,6 +34,6 @@ export const getUserAuth = async () => {
 };
 
 export const checkAuth = async () => {
-  const { userId } = auth();
+  const { userId } = await auth();
   if (!userId) redirect("/sign-in");
 };

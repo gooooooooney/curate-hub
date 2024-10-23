@@ -6,10 +6,12 @@ import { collectionItems } from './collectionItems';
 import { timestamps } from './columns.helpers';
 import { itemLikes } from './itemLikes';
 import { users } from './users';
+import { createCuid } from '@/lib/utils';
+import { itemTags } from './itemTags';
 
 export const items = sqliteTable('items', {
-  id: integer('id').primaryKey({ autoIncrement: true }),
-  userId: integer('user_id').references(() => users.id),
+  id: text('id').primaryKey().$defaultFn(() => createCuid()),
+  userId: text('user_id').references(() => users.id),
   url: text('url'),
   title: text('title'),
   image: text('image'),
@@ -29,6 +31,8 @@ export const itemsRelations = relations(items, ({ many, one }) => ({
     fields: [items.userId],
     references: [users.id],
   }),
+  // 添加与 itemTags 的关系
+  itemTags: many(itemTags),
 }));
 
 export type Item = typeof items.$inferSelect;
