@@ -1,9 +1,11 @@
-import { sqliteTable, text, integer } from 'drizzle-orm/sqlite-core';
-import { users } from './users';
-import { timestamps } from './columns.helpers';
 import { relations } from 'drizzle-orm';
-import { itemLikes } from './itemLikes';
+import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
+import { z } from 'zod';
 import { collectionItems } from './collectionItems';
+import { timestamps } from './columns.helpers';
+import { itemLikes } from './itemLikes';
+import { users } from './users';
 
 export const items = sqliteTable('items', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -28,3 +30,14 @@ export const itemsRelations = relations(items, ({ many, one }) => ({
     references: [users.id],
   }),
 }));
+
+export type Item = typeof items.$inferSelect;
+export type NewItem = typeof items.$inferInsert;
+
+export const itemSelect = createSelectSchema(items);
+
+export type ItemSelect = z.infer<typeof itemSelect>;
+
+export const itemInsert = createInsertSchema(items)
+
+export type InsertItem = z.infer<typeof itemInsert>;

@@ -1,11 +1,12 @@
-import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
-import { timestamps } from './columns.helpers';
 import { relations } from 'drizzle-orm';
-import { items } from './items';
+import { int, sqliteTable, text } from 'drizzle-orm/sqlite-core';
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 import { collections } from './collections';
+import { timestamps } from './columns.helpers';
 import { itemLikes } from './itemLikes';
-import { userPlans } from './userPlans';
+import { items } from './items';
 import { userFollows } from './userFollows';
+import { userPlans } from './userPlans';
 
 export const users = sqliteTable('users', {
   id: int('id').primaryKey({ autoIncrement: true }),
@@ -18,8 +19,7 @@ export const users = sqliteTable('users', {
   ...timestamps,
 });
 
-export type SelectUser = typeof users.$inferSelect;
-export type InsertUser = typeof users.$inferInsert;
+
 
 export const usersRelations = relations(users, ({ many, one }) => ({
   collections: many(collections),
@@ -31,3 +31,9 @@ export const usersRelations = relations(users, ({ many, one }) => ({
     references: [userPlans.userId],
   }),
 }));
+
+export type SelectUser = typeof users.$inferSelect;
+export type InsertUser = typeof users.$inferInsert;
+
+export const userSelect = createSelectSchema(users);
+export const userInsert = createInsertSchema(users);

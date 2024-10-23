@@ -93,8 +93,4 @@ export async function POST(req: Request) {
   return new Response('', { status: 200 })
 }
 
-export const GET = () => {
-  return new Response('Hello World', { status: 200 });
-};
-
 
