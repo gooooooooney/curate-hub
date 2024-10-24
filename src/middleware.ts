@@ -5,7 +5,8 @@ import { NextResponse } from 'next/server';
 // Please edit this to allow other routes to be public as needed.
 // See https://clerk.com/docs/references/nextjs/clerk-middleware for more information about configuring your middleware
 const isProtectedRoute = createRouteMatcher([
-  "/dashboard(.*)"
+  "/dashboard(.*)",
+  "/api/v1(.*)",
 ]);
 
 const isPublicRoute = createRouteMatcher([
