@@ -1,3 +1,4 @@
+import { createCuid } from '@/lib/utils';
 import { relations } from 'drizzle-orm';
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
@@ -5,9 +6,8 @@ import { z } from 'zod';
 import { collectionItems } from './collectionItems';
 import { timestamps } from './columns.helpers';
 import { itemLikes } from './itemLikes';
-import { users } from './users';
-import { createCuid } from '@/lib/utils';
 import { itemTags } from './itemTags';
+import { users } from './users';
 
 export const items = sqliteTable('items', {
   id: text('id').primaryKey().$defaultFn(() => createCuid()),
@@ -22,6 +22,7 @@ export const items = sqliteTable('items', {
   order: integer('order'),
   isDeleted: integer('is_deleted', { mode: 'boolean' }).default(false),
   ...timestamps,
+  likeCount: integer('like_count').notNull().default(0),
 });
 
 export const itemsRelations = relations(items, ({ many, one }) => ({

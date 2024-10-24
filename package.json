@@ -17,6 +17,7 @@
     "@libsql/client": "^0.14.0",
     "@nextui-org/button": "^2.0.38",
     "@nextui-org/calendar": "^2.0.12",
+    "@nextui-org/modal": "^2.0.41",
     "@nextui-org/system": "^2.2.6",
     "@nextui-org/theme": "^2.2.11",
     "@paralleldrive/cuid2": "^2.2.2",

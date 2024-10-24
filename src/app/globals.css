@@ -59,6 +59,9 @@
     --sidebar-border: 220 13% 91%;
  
     --sidebar-ring: 217.2 91.2% 59.8%;
+ 
+    --custom-hover-text: 210 40% 98%; /* 使用HSL值，根据需要调整 */
+    --custom-primary: 210 40% 98%; /* 使用HSL值，根据需要调整 */
   }
  
   .dark {
@@ -102,6 +105,9 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+ 
+    --custom-hover-text: 210 40% 98%; /* 暗色主题的HSL值 */
+    --custom-primary: 210 40% 98%; /* 暗色主题的HSL值 */
   }
 }
  
